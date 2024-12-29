@@ -19,7 +19,7 @@ export default function LogIn() {
 	const formik = useFormik({
 		initialValues: LoginInitialValues,
 		validate: (values: LoginTypes) => {
-			let errors: LoginTypes = { email: '', password: '' };
+			let errors: any = {};
 			if (!values.email) {
 				errors.email = 'Required*';
 			} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -32,7 +32,8 @@ export default function LogIn() {
 			return errors;
 		},
 		onSubmit: (values: LoginTypes) => {
-			console.log("form values", formik.values, values);
+			
+			console.log("hi")
 		}
 	});
 	const fields: FormFieldProps[] = [
@@ -64,7 +65,7 @@ export default function LogIn() {
 								value={formik.values[field.id as keyof LoginTypes]}
 							/>
 						))}
-						<button type='submit' className='py-2 px-5 bg-black text-white rounded-md'>Continue</button>
+						<button type="submit" className='py-2 px-5 bg-black text-white rounded-md'>Continue</button>
 						<p className='text-[0.9rem]'>Forgot Password?
 						<Link to="/forgot-password" className='mx-1 text-blue-600 underline'>Reset Password</Link>
 					</p>

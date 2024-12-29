@@ -5,7 +5,14 @@ export interface CardProps {
   onClick?: () => void;
   role?: string;
 }
-
+export interface OTPProps{
+  value: string;
+  valueLength: number;
+  error?: string;
+  touched?: boolean;
+  name?: string;
+  onChange: (value: string) => void;
+};
 export interface ButtonProps {
   label: string;
   variant?:

@@ -1,32 +1,46 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import logo from '../../../utils/logo.png'
 import PageTitle from '../../../component/title'
 import { useFormik } from 'formik'
 import { Link } from 'react-router-dom';
+import OTPInput from '../../../component/OtpInput';
 export default function ForgetPassword() {
+	const [otpShow, setOtpShow] = useState<boolean>(false);
 	const formik = useFormik({
 		initialValues: {
-			email: ''
+			email: '',
+			otp:''
 		},
-		validate: (values: { email: string }) => {
-			let errors: any = { email: ''};
+		onSubmit: (values: { email: string, otp: string}) => {
+			if (!otpShow) {
+				setOtpShow(true);
+			} else {
+				
+			}
+
+			console.log("form values", formik.values, values);
+		},
+		validate: (values: { email: string, otp: string}) => {
+			let errors: any = {};
 			if (!values.email) {
 				errors.email = 'Required*';
 			} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
 				errors.email = 'Invalid email address';
 			}
 
-
 			return errors;
-		},
-		onSubmit: (values: {email: string}) => {
-			console.log("form values", formik.values, values);
 		}
 	});
+	const onChange = useCallback(
+        (value: string) => {
+            formik.setFieldValue('otp', value);
+        },
+        [formik.setFieldValue]
+    );
 	return (
 		<div className='w-screen h-screen flex box-border'>
 			<div className='w-1/2 h-full bg-gray-100'>
-				<img src={logo} className='w-full h-full'></img>
+				<img src={logo} alt='' className='w-full h-full'></img>
 			</div>
 			<div className='w-1/2 h-full'>
 				<div className='p-5'>
@@ -41,7 +55,8 @@ export default function ForgetPassword() {
 							</div>
 							{formik.touched.email && formik.errors.email ? <div className='text-red-500 text-[0.8rem]'>{formik.errors.email}</div> : null}
 						</div>
-						<button type='submit' className='py-2 px-5 bg-black text-white rounded-md'>Send OTP</button>
+						{ otpShow && <OTPInput name="otp" value={formik.values.otp} valueLength={6} onChange={onChange} error={formik.errors.otp} touched={formik.touched.otp} />}
+						<button type='submit' className='py-2 px-5 bg-black text-white rounded-md'>{otpShow?"Verify OTP":"Send OTP"}</button>
 					</div>
 				</form>
 

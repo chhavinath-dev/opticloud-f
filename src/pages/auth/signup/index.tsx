@@ -18,7 +18,7 @@ export default function SignUp() {
 	const formik = useFormik({
 		initialValues: SignUpInitialValues,
 		validate: (values: SignUpTypes) => {
-			let errors: SignUpTypes = { fname: '', lname: '', email: '', password: '', confirm_password: '', organisaion: '' };
+			let errors: any = {};
 			if (!values.fname) {
 				errors.fname = 'Required*';
 			}
@@ -32,12 +32,13 @@ export default function SignUp() {
 			}
 			if (!values.password) {
 				errors.password = 'Required*';
-			}else if(formik.touched.confirm_password && values.confirm_password!=values.password){
-				errors.password = 'Password must be same';
 			}
+			// else if(formik.touched.confirm_password && values.confirm_password!==values.password){
+			// 	errors.password = 'Password must be same';
+			// }
 			if (!values.confirm_password) {
 				errors.confirm_password = "Required*";
-			}else if(formik.touched.password && values.confirm_password!=values.password){
+			}else if(formik.touched.password && formik.touched.confirm_password  && values.confirm_password!==values.password){
 				errors.confirm_password = 'Password must be same';
 			}
 			if (!values.organisaion) {

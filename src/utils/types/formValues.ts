@@ -11,10 +11,14 @@ export interface LoginTypes {
 	email: string,
 	password: string,
 };
+export interface ResetPasswordTypes {
+	password: string,
+	confirm_password: string
+}
 export interface FormFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  id: string;
-  error?: string;
+	label: string;
+	id: string;
+	error?: string;
 }
 export const SignUpInitialValues: SignUpTypes = {
 	fname: '',
@@ -25,10 +29,14 @@ export const SignUpInitialValues: SignUpTypes = {
 	organisaion: '',
 };
 
-export const LoginInitialValues: LoginTypes={
-    email: '',
-	password:''
+export const LoginInitialValues: LoginTypes = {
+	email: '',
+	password: ''
 };
+export const ResetPasswordInitialValues: ResetPasswordTypes={
+	password:'',
+	confirm_password:''
+}
 
 
 
